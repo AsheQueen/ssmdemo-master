@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.outman.mapper.OrgUserMapper">
+  <resultMap id="BaseResultMap" type="com.outman.po.OrgUserKey">
+    <id column="org_id" jdbcType="BIGINT" property="orgId" />
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.outman.po.OrgUserKey">
+    delete from rel_org_user
+    where org_id = #{orgId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.outman.po.OrgUserKey">
+    insert into rel_org_user (org_id, user_id)
+    values (#{orgId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.outman.po.OrgUserKey">
+    insert into rel_org_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getRelOrgUser" resultMap="BaseResultMap">
+    select org_id,user_id from rel_org_user
+     WHERE org_id = #{orgId,jdbcType=BIGINT}
+      and user_id = #{userId,jdbcType=BIGINT}
+  </select>
+</mapper>

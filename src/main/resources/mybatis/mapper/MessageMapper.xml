@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.outman.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.outman.po.Message">
+    <id column="message_id" jdbcType="BIGINT" property="messageId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="message_memo" jdbcType="VARCHAR" property="messageMemo" />
+    <result column="rel_id" jdbcType="BIGINT" property="relId" />
+    <result column="rel_type" jdbcType="SMALLINT" property="relType" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="is_read" jdbcType="SMALLINT" property="isRead" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+    <result column="list_id" jdbcType="INTEGER" property="listId"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    message_id, org_id, message_memo, rel_id, rel_type, user_id, is_read, create_user_id, 
+    create_time, shop_id, list_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from g_message
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_message
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.outman.po.Message">
+    insert into g_message (message_id, org_id, message_memo, 
+      rel_id, rel_type, user_id, 
+      is_read, create_user_id, create_time, shop_id, list_id
+      )
+    values (#{messageId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{messageMemo,jdbcType=VARCHAR}, 
+      #{relId,jdbcType=BIGINT}, #{relType,jdbcType=SMALLINT}, #{userId,jdbcType=BIGINT}, 
+      #{isRead,jdbcType=SMALLINT}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{shopId,jdbcType=INTEGER}, #{listId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.outman.po.Message">
+    insert into g_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="messageMemo != null">
+        message_memo,
+      </if>
+      <if test="relId != null">
+        rel_id,
+      </if>
+      <if test="relType != null">
+        rel_type,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="listId != null">
+        list_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        #{messageId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="messageMemo != null">
+        #{messageMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null">
+        #{relId,jdbcType=BIGINT},
+      </if>
+      <if test="relType != null">
+        #{relType,jdbcType=SMALLINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="listId != null">
+        #{listId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.outman.po.Message">
+    update g_message
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="messageMemo != null">
+        message_memo = #{messageMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null">
+        rel_id = #{relId,jdbcType=BIGINT},
+      </if>
+      <if test="relType != null">
+        rel_type = #{relType,jdbcType=SMALLINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=SMALLINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.outman.po.Message">
+    update g_message
+    set org_id = #{orgId,jdbcType=BIGINT},
+      message_memo = #{messageMemo,jdbcType=VARCHAR},
+      rel_id = #{relId,jdbcType=BIGINT},
+      rel_type = #{relType,jdbcType=SMALLINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      is_read = #{isRead,jdbcType=SMALLINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      list_id = #{listId,jdbcType=INTEGER}
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getAllMessageList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_message
+  </select>
+  <select id="getMessageList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_message
+    WHERE org_id = #{orgId,jdbcType=BIGINT}
+    and user_id = #{userId,jdbcType=BIGINT}
+  </select>
+</mapper>

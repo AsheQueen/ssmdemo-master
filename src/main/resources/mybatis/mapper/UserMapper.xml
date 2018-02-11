@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.outman.mapper.UserMapper" >
+
+    <resultMap id="user" type="com.outman.po.User">
+        <id column="user_id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="headpic" property="headpic"/>
+        <result column="user_type" property="userType"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="weixin" property="weixin"/>
+        <result column="user_conceal" property="userConceal"/>
+        <result column="user_usb_id" property="userUsbId"/>
+    </resultMap>
+
+    <resultMap id="org" type="com.outman.po.Org">
+        <id column="org_id" property="orgId"/>
+        <result column="org_name" property="orgName"/>
+        <result column="org_industry" property="orgIndustry"/>
+    </resultMap>
+    <update id="updatePassword" parameterType="com.outman.po.User">
+        update g_user
+    set user_id = #{id},
+    user_name = #{username},
+    headpic = #{headpic},
+    user_type = #{userType},
+    user_phone = #{userPhone},
+    user_password = #{userPassword},
+    weixin = #{weixin},
+    user_conceal = #{userConceal},
+    user_usb_id = #{userUsbId}
+    where user_id = #{id}
+    </update>
+
+
+    <select id="findUserById" parameterType="int" resultMap="user">
+      SELECT user_id as id,user_name as username,headpic, user_type as userType,user_type as userType, user_phone as userPhone, user_password as userPassword, weixin, user_conceal as userConceal, user_usb_id as userUsbId FROM g_user WHERE user_id=#{value}
+    </select>
+    <select id="findUserByPhone" parameterType="string" resultMap="user">
+      SELECT user_id as id,user_name as username,headpic, user_type as userType,user_type as userType, user_phone as userPhone, user_password as userPassword, weixin, user_conceal as userConceal, user_usb_id as userUsbId FROM g_user WHERE user_phone = #{value}
+    </select>
+    <select id="findOrgIdByUserId" resultType="java.lang.Integer">
+        SELECT org_id FROM rel_org_user WHERE user_id = #{value}
+    </select>
+    <select id="findOrgInfoByOrgId" parameterType="integer" resultMap="org">
+        SELECT org_id as orgId,org_name as orgName, org_industry as orgIndustry FROM g_org WHERE org_id = #{value}
+    </select>
+
+    <select id="isInvited" parameterType="integer" resultType="com.outman.po.InviteEntity">
+        SELECT cust_id FROM g_invite WHERE cust_id>0 AND invited_id=#{value}
+    </select>
+</mapper>

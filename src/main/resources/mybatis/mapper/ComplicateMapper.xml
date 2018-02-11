@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.outman.mapper.ComplicateMapper">
+  <resultMap id="ComplcateBaseResultMap" type="com.outman.po.Complicate">
+    <id column="complicate_id" jdbcType="BIGINT" property="complicateId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="complicate_name" jdbcType="VARCHAR" property="complicateName" />
+    <result column="sign_date" jdbcType="TIMESTAMP" property="signDate" />
+    <result column="cust_id1" jdbcType="BIGINT" property="custId1" />
+    <result column="cust_id2" jdbcType="BIGINT" property="custId2" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="first_part" jdbcType="VARCHAR" property="firstPart" />
+    <result column="second_part" jdbcType="VARCHAR" property="secondPart" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="commitment" jdbcType="VARCHAR" property="commitment" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_user_name" jdbcType="VARCHAR" property="bankUserName" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="complicate_deposit" jdbcType="DECIMAL" property="complicateDeposit" />
+    <result column="complicate_amount" jdbcType="VARCHAR" property="complicateAmount" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="start_rent_free_date" jdbcType="TIMESTAMP" property="startRentFreeDate" />
+    <result column="end_rent_free_date" jdbcType="TIMESTAMP" property="endRentFreeDate" />
+    <result column="complicate_cycle" jdbcType="SMALLINT" property="complicateCycle" />
+    <result column="complicate_time1" jdbcType="TIMESTAMP" property="complicateTime1" />
+    <result column="complicate_time2" jdbcType="TIMESTAMP" property="complicateTime2" />
+    <result column="owner_user" jdbcType="BIGINT" property="ownerUser" />
+    <result column="finance_user" jdbcType="BIGINT" property="financeUser" />
+    <result column="delivery_user" jdbcType="BIGINT" property="deliveryUser" />
+    <result column="complicate_state" jdbcType="SMALLINT" property="complicateState" />
+    <result column="complicate_memo" jdbcType="VARCHAR" property="complicateMemo" />
+    <result column="pic_log" jdbcType="VARCHAR" property="picLog" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    complicate_id, org_id, complicate_name, sign_date, cust_id1, cust_id2, shop_id, first_part, 
+    second_part, address, area, industry, brand, commitment, bank_name, bank_user_name, 
+    bank_account, complicate_deposit, complicate_amount, start_date, end_date, start_rent_free_date, 
+    end_rent_free_date, complicate_cycle, complicate_time1, complicate_time2, owner_user, 
+    finance_user, delivery_user, complicate_state, complicate_memo, pic_log, create_user, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ComplcateBaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from g_complicate
+    where complicate_id = #{complicateId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByShopId" resultMap="ComplcateBaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from g_complicate
+    WHERE shop_id = #{shopId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_complicate
+    where complicate_id = #{complicateId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.outman.po.Complicate">
+    insert into g_complicate ( org_id, complicate_name,
+      sign_date, cust_id1, cust_id2, 
+      shop_id, first_part, second_part, 
+      address, area, industry, 
+      brand, commitment, bank_name, 
+      bank_user_name, bank_account, complicate_deposit, 
+      complicate_amount, start_date, end_date, 
+      start_rent_free_date, end_rent_free_date, 
+      complicate_cycle, complicate_time1, complicate_time2, 
+      owner_user, finance_user, delivery_user, 
+      complicate_state, complicate_memo, pic_log, 
+      create_user, create_time)
+    values ( #{orgId,jdbcType=BIGINT}, #{complicateName,jdbcType=VARCHAR},
+      #{signDate,jdbcType=TIMESTAMP}, #{custId1,jdbcType=BIGINT}, #{custId2,jdbcType=BIGINT}, 
+      #{shopId,jdbcType=BIGINT}, #{firstPart,jdbcType=VARCHAR}, #{secondPart,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
+      #{brand,jdbcType=VARCHAR}, #{commitment,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{bankUserName,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{complicateDeposit,jdbcType=DECIMAL}, 
+      #{complicateAmount,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{startRentFreeDate,jdbcType=TIMESTAMP}, #{endRentFreeDate,jdbcType=TIMESTAMP}, 
+      #{complicateCycle,jdbcType=SMALLINT}, #{complicateTime1,jdbcType=TIMESTAMP}, #{complicateTime2,jdbcType=TIMESTAMP}, 
+      #{ownerUser,jdbcType=BIGINT}, #{financeUser,jdbcType=BIGINT}, #{deliveryUser,jdbcType=BIGINT}, 
+      #{complicateState,jdbcType=SMALLINT}, #{complicateMemo,jdbcType=VARCHAR}, #{picLog,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.outman.po.Complicate">
+    insert into g_complicate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="complicateName != null">
+        complicate_name,
+      </if>
+      <if test="signDate != null">
+        sign_date,
+      </if>
+      <if test="custId1 != null">
+        cust_id1,
+      </if>
+      <if test="custId2 != null">
+        cust_id2,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="firstPart != null">
+        first_part,
+      </if>
+      <if test="secondPart != null">
+        second_part,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="commitment != null">
+        commitment,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankUserName != null">
+        bank_user_name,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="complicateDeposit != null">
+        complicate_deposit,
+      </if>
+      <if test="complicateAmount != null">
+        complicate_amount,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="startRentFreeDate != null">
+        start_rent_free_date,
+      </if>
+      <if test="endRentFreeDate != null">
+        end_rent_free_date,
+      </if>
+      <if test="complicateCycle != null">
+        complicate_cycle,
+      </if>
+      <if test="complicateTime1 != null">
+        complicate_time1,
+      </if>
+      <if test="complicateTime2 != null">
+        complicate_time2,
+      </if>
+      <if test="ownerUser != null">
+        owner_user,
+      </if>
+      <if test="financeUser != null">
+        finance_user,
+      </if>
+      <if test="deliveryUser != null">
+        delivery_user,
+      </if>
+      <if test="complicateState != null">
+        complicate_state,
+      </if>
+      <if test="complicateMemo != null">
+        complicate_memo,
+      </if>
+      <if test="picLog != null">
+        pic_log,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="complicateId != null">
+        #{complicateId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="complicateName != null">
+        #{complicateName,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId1 != null">
+        #{custId1,jdbcType=BIGINT},
+      </if>
+      <if test="custId2 != null">
+        #{custId2,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="firstPart != null">
+        #{firstPart,jdbcType=VARCHAR},
+      </if>
+      <if test="secondPart != null">
+        #{secondPart,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="commitment != null">
+        #{commitment,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUserName != null">
+        #{bankUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="complicateDeposit != null">
+        #{complicateDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="complicateAmount != null">
+        #{complicateAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startRentFreeDate != null">
+        #{startRentFreeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endRentFreeDate != null">
+        #{endRentFreeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complicateCycle != null">
+        #{complicateCycle,jdbcType=SMALLINT},
+      </if>
+      <if test="complicateTime1 != null">
+        #{complicateTime1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complicateTime2 != null">
+        #{complicateTime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerUser != null">
+        #{ownerUser,jdbcType=BIGINT},
+      </if>
+      <if test="financeUser != null">
+        #{financeUser,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryUser != null">
+        #{deliveryUser,jdbcType=BIGINT},
+      </if>
+      <if test="complicateState != null">
+        #{complicateState,jdbcType=SMALLINT},
+      </if>
+      <if test="complicateMemo != null">
+        #{complicateMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="picLog != null">
+        #{picLog,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.outman.po.Complicate">
+    update g_complicate
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="complicateName != null">
+        complicate_name = #{complicateName,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null">
+        sign_date = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId1 != null">
+        cust_id1 = #{custId1,jdbcType=BIGINT},
+      </if>
+      <if test="custId2 != null">
+        cust_id2 = #{custId2,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="firstPart != null">
+        first_part = #{firstPart,jdbcType=VARCHAR},
+      </if>
+      <if test="secondPart != null">
+        second_part = #{secondPart,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="commitment != null">
+        commitment = #{commitment,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUserName != null">
+        bank_user_name = #{bankUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="complicateDeposit != null">
+        complicate_deposit = #{complicateDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="complicateAmount != null">
+        complicate_amount = #{complicateAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startRentFreeDate != null">
+        start_rent_free_date = #{startRentFreeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endRentFreeDate != null">
+        end_rent_free_date = #{endRentFreeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complicateCycle != null">
+        complicate_cycle = #{complicateCycle,jdbcType=SMALLINT},
+      </if>
+      <if test="complicateTime1 != null">
+        complicate_time1 = #{complicateTime1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complicateTime2 != null">
+        complicate_time2 = #{complicateTime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerUser != null">
+        owner_user = #{ownerUser,jdbcType=BIGINT},
+      </if>
+      <if test="financeUser != null">
+        finance_user = #{financeUser,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryUser != null">
+        delivery_user = #{deliveryUser,jdbcType=BIGINT},
+      </if>
+      <if test="complicateState != null">
+        complicate_state = #{complicateState,jdbcType=SMALLINT},
+      </if>
+      <if test="complicateMemo != null">
+        complicate_memo = #{complicateMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="picLog != null">
+        pic_log = #{picLog,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where complicate_id = #{complicateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.outman.po.Complicate">
+    update g_complicate
+    set org_id = #{orgId,jdbcType=BIGINT},
+      complicate_name = #{complicateName,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=TIMESTAMP},
+      cust_id1 = #{custId1,jdbcType=BIGINT},
+      cust_id2 = #{custId2,jdbcType=BIGINT},
+      shop_id = #{shopId,jdbcType=BIGINT},
+      first_part = #{firstPart,jdbcType=VARCHAR},
+      second_part = #{secondPart,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      commitment = #{commitment,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_user_name = #{bankUserName,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      complicate_deposit = #{complicateDeposit,jdbcType=DECIMAL},
+      complicate_amount = #{complicateAmount,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      start_rent_free_date = #{startRentFreeDate,jdbcType=TIMESTAMP},
+      end_rent_free_date = #{endRentFreeDate,jdbcType=TIMESTAMP},
+      complicate_cycle = #{complicateCycle,jdbcType=SMALLINT},
+      complicate_time1 = #{complicateTime1,jdbcType=TIMESTAMP},
+      complicate_time2 = #{complicateTime2,jdbcType=TIMESTAMP},
+      owner_user = #{ownerUser,jdbcType=BIGINT},
+      finance_user = #{financeUser,jdbcType=BIGINT},
+      delivery_user = #{deliveryUser,jdbcType=BIGINT},
+      complicate_state = #{complicateState,jdbcType=SMALLINT},
+      complicate_memo = #{complicateMemo,jdbcType=VARCHAR},
+      pic_log = #{picLog,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where complicate_id = #{complicateId,jdbcType=BIGINT}
+  </update>
+</mapper>

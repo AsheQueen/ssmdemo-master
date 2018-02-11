@@ -1,0 +1,128 @@
+-- ----------------------------
+--  2018-01-17 增加用户表usb序列号字段 许文龙
+-- ----------------------------
+alter table g_user add user_usb_id varchar(100);
+
+
+-- ----------------------------
+-- 2018-02-01 创建提醒表 许文龙
+-- ----------------------------
+DROP TABLE IF EXISTS `g_notice`;
+CREATE TABLE `g_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL COMMENT '商户id',
+  `list_id` int(11) NOT NULL COMMENT '提醒类型id',
+  `name` varchar(32) NOT NULL COMMENT '提醒名称',
+  `is_checked` tinyint(1) NOT NULL COMMENT '提醒状态',
+  `time` datetime NOT NULL COMMENT '提醒时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- 2018-02-01 创建提醒表 许文龙
+-- ----------------------------
+DROP TABLE IF EXISTS `g_notice`;
+CREATE TABLE `g_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL COMMENT '商户id',
+  `list_id` int(11) NOT NULL COMMENT '提醒类型id',
+  `name` varchar(32) NOT NULL COMMENT '提醒名称',
+  `is_checked` tinyint(1) NOT NULL COMMENT '提醒状态',
+  `time` datetime NOT NULL COMMENT '提醒时间',
+  `todolistId` varchar(100) NOT NULL COMMENT '提醒消息id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 2018-02-02 创建提醒表 许文龙
+-- ----------------------------
+DROP TABLE IF EXISTS `g_lawer`;
+CREATE TABLE `g_lawer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company` varchar(32) NOT NULL COMMENT '律师事务所名称',
+	`lawer_name` varchar(32) NOT NULL COMMENT '律师名称',
+	`phone` varchar(32)  COMMENT '电话',
+	`address` varchar(32)  COMMENT '地址',
+	`webSite` varchar(32)  COMMENT '网址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 2018-02-02 创建智能硬件表 许文龙  图片关联reltype = 21
+-- ----------------------------
+DROP TABLE IF EXISTS `g_aihard`;
+CREATE TABLE `g_aihard` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(32) NOT NULL COMMENT '智能硬件介绍',
+	`phone` varchar(32)  COMMENT '电话',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 2018-02-02 Table structure for g_aihard
+-- ----------------------------
+DROP TABLE IF EXISTS `g_aihard`;
+CREATE TABLE `g_aihard` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(32) NOT NULL COMMENT '智能硬件介绍',
+  `phone` varchar(32) DEFAULT NULL COMMENT '电话',
+  `detail` varchar(100) DEFAULT NULL COMMENT '详情',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- 2018-02-05 修改智律师信息表 许文龙 g_lawer   关联rel-type=22
+-- ----------------------------
+DROP TABLE IF EXISTS `g_lawer`;
+CREATE TABLE `g_lawer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company` varchar(32) NOT NULL COMMENT '律师事务所名称',
+  `lawer_name` varchar(32) NOT NULL COMMENT '律师名称',
+  `phone` varchar(32) DEFAULT NULL COMMENT '电话',
+  `address` varchar(32) DEFAULT NULL COMMENT '地址',
+  `webSite` varchar(32) DEFAULT NULL COMMENT '网址',
+  `goodAt` varchar(32) DEFAULT NULL COMMENT '擅长方向',
+  `profile` varchar(32) DEFAULT NULL COMMENT '简介',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- 2018-02-06 新建新闻表 许文龙 g_news
+-- ----------------------------
+DROP TABLE IF EXISTS `g_news`;
+CREATE TABLE `g_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(32) NOT NULL COMMENT '标题',
+  `date` TIMESTAMP NOT NULL COMMENT '时间',
+  `newsDetail` varchar(100) NOT NULL COMMENT '详情',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 修改提醒信息 g_notice  添加字段   rel_type=23
+-- ----------------------------
+DROP TABLE IF EXISTS `g_notice`;
+CREATE TABLE `g_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL COMMENT '商户id',
+  `list_id` int(11) NOT NULL COMMENT '提醒类型id',
+  `name` varchar(32) NOT NULL COMMENT '提醒名称',
+  `is_checked` tinyint(1) NOT NULL COMMENT '提醒状态',
+  `time` datetime NOT NULL COMMENT '提醒时间',
+  `todolistId` varchar(100) NOT NULL COMMENT '提醒消息id',
+  `org_id` int(11) NOT NULL COMMENT '关联org_id',
+  `user_id` int(11) NOT NULL COMMENT '关联user_id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 修改 g_message  添加字段  shop_id,list_id
+-- ----------------------------
+alter table g_message add shop_id int(4) default '0';
+alter table g_message add list_id int(4);

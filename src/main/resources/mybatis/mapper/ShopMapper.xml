@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.outman.mapper.ShopMapper">
+
+    <resultMap id="user" type="com.outman.po.User">
+        <id column="user_id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="headpic" property="headpic"/>
+        <result column="user_type" property="userType"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="weixin" property="weixin"/>
+        <result column="user_conceal" property="userConceal"/>
+        <result column="user_usb_id" property="userUsbId"/>
+    </resultMap>
+
+    <resultMap id="org" type="com.outman.po.Org">
+        <id column="org_id" property="orgId"/>
+        <result column="org_name" property="orgName"/>
+        <result column="org_industry" property="orgIndustry"/>
+    </resultMap>
+
+    <resultMap id="shop" type="com.outman.po.Shop">
+        <id column="shop_id" property="shopId"/>
+        <result column="org_id" property="orgId"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="shop_name" property="shopName"/>
+        <result column="shop_area" property="shopArea"/>
+        <result column="shop_finance" property="shopFinance"/>
+        <result column="shop_connect" property="shopConnect"/>
+        <result column="shop_mobile" property="shopMobile"/>
+        <result column="shop_building" property="shopBuilding"/>
+        <result column="shop_region" property="shopRegion"/>
+        <result column="shop_address" property="shopAddress"/>
+        <result column="shop_floor" property="shopFloor"/>
+        <result column="shop_industry" property="shopIndustry"/>
+        <result column="shop_facilities" property="shopFacilities"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <select id="getShopByParams" parameterType="com.outman.po.Shop" resultMap="shop">
+        select * from g_shops
+        <where>
+            <if test="orgId!=0 and orgId!=null">
+                and org_id=#{orgId}
+                and (
+                  <trim suffix="and" prefixOverrides="or">
+                <if test="shopName!=null and shopName!=''">
+                    or shop_name LIKE '%' #{shopName} '%'
+                </if>
+                <if test="shopBuilding!=null and shopBuilding!=''">
+                    or shop_building=#{shopBuilding}
+                </if>
+                <if test="shopRegion!=null and shopRegion!=''">
+                    or shop_region=#{shopRegion}
+                </if>
+                <if test="shopAddress!=null and shopAddress!=''">
+                    or shop_address LIKE '%' #{shopAddress} '%'
+                </if>
+                <if test="shopFloor!=null and shopFloor!=''">
+                    or shop_floor LIKE '%' #{shopFloor} '%'
+                </if>
+                <if test="shopIndustry!=null and shopIndustry!=''">
+                    or shop_industry LIKE '%' #{shopIndustry} '%'
+                </if>
+                <if test="shopFacilities!=null and shopFacilities!=''">
+                    or shop_facilities LIKE '%' #{shopFacilities} '%'
+                </if>
+                  </trim>
+                1=1 )
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
